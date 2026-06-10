@@ -1,37 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { ContactPopup } from '@/components/ContactPopup';
 import { Ruler } from 'lucide-react';
+import { projects } from '@/data/projects';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
-
-const projects = [
-  {
-    image: '/images/project-zeneva.jpg',
-    name: 'Женева',
-    area: '9.6 – 18 м²',
-    description: 'Парная, моечная и небольшая комната отдыха в одном модуле. Идеальна для небольшого участка.',
-    price: 'от 450 000 ₽',
-    specs: 'Парная 4 м² | Моечная 3 м² | Печь Harvia 6 кВт',
-  },
-  {
-    image: '/images/project-stockholm.jpg',
-    name: 'Стокгольм',
-    area: '9.6 – 18 м²',
-    description: 'Просторная парная, душевая, зона отдыха с панорамным окном. Современный скандинавский стиль.',
-    price: 'от 500 000 ₽',
-    specs: 'Парная 6 м² | Зона отдыха 8 м² | Печь Kastor 9 кВт',
-  },
-  {
-    image: '/images/project-foster.jpg',
-    name: 'Фостер',
-    area: 'от 19.2 м²',
-    description: 'Парная, моечная, большая комната отдыха и терраса. Полноценный SPA-комплекс на вашем участке.',
-    price: 'от 1 000 000 ₽',
-    specs: 'Парная 8 м² | Комната отдыха 12 м² | Терраса 8 м² | Печь Harvia 12 кВт',
-  },
-];
 
 export function Catalog() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -50,13 +24,17 @@ export function Catalog() {
       },
     });
 
-    tl.from(cards, {
-      opacity: 0,
-      y: 40,
-      duration: 0.8,
-      ease: 'power3.out',
-      stagger: 0.15,
-    });
+    tl.fromTo(
+      cards,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.15,
+      }
+    );
 
     return () => {
       tl.kill();
@@ -93,7 +71,7 @@ export function Catalog() {
                     src={project.image}
                     alt={`Модульная баня ${project.name}`}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
+
                   />
                   {/* Price Badge */}
                   <div className="absolute right-0 top-0 rounded-bl-lg bg-[#C4703F] px-4 py-2">

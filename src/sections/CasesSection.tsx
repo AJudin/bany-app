@@ -1,31 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { projects } from '@/data/projects';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
-
-const cases = [
-  {
-    image: '/images/case-1.jpg',
-    tag: 'ПРОЕКТ СТОКГОЛЬМ',
-    title: 'Баня у озера в Карелии',
-    description: 'Модуль 6×4 м с террасой. Установка на винтовые сваи. Клиент использует круглый год.',
-  },
-  {
-    image: '/images/case-2.jpg',
-    tag: 'ПРОЕКТ ФОСТЕР',
-    title: 'Гостевой комплекс в Подмосковье',
-    description: 'Два модуля: парная + зона отдыха. Панорамное остекление, дровяная печь.',
-  },
-  {
-    image: '/images/case-3.jpg',
-    tag: 'ПРОЕКТ ЖЕНЕВА',
-    title: 'Компактная баня на даче',
-    description: 'Компактный модуль 4×3 м. Вместил всё необходимое: парную, моечную и террасу.',
-  },
-];
 
 export function CasesSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -43,13 +23,17 @@ export function CasesSection() {
       },
     });
 
-    tl.from(cards, {
-      opacity: 0,
-      y: 40,
-      duration: 0.8,
-      ease: 'power3.out',
-      stagger: 0.12,
-    });
+    tl.fromTo(
+      cards,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.12,
+      }
+    );
 
     return () => {
       tl.kill();
@@ -72,7 +56,7 @@ export function CasesSection() {
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {cases.map((item, index) => (
+          {projects.map((item, index) => (
             <div
               key={index}
               className="case-card group overflow-hidden rounded-xl bg-white shadow-[0_4px_24px_rgba(0,0,0,0.08)] transition-all duration-[400ms] hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
@@ -80,15 +64,17 @@ export function CasesSection() {
               <div className="aspect-[16/10] overflow-hidden">
                 <img
                   src={item.image}
-                  alt={item.title}
+                  alt={`Модульная баня ${item.name}`}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
               </div>
               <div className="p-8">
-                <span className="text-label text-[#C4703F]">{item.tag}</span>
+                <span className="text-label text-[#C4703F]">
+                  ПРОЕКТ {item.name.toUpperCase()}
+                </span>
                 <h3 className="mt-3 font-display text-xl font-medium text-[#2C2C2C] md:text-2xl">
-                  {item.title}
+                  Модульная баня {item.name}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-[#6B6B6B]">
                   {item.description}
