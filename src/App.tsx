@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Home } from '@/pages/Home';
@@ -7,11 +7,15 @@ import { Production } from '@/pages/Production';
 import { Catalog } from '@/pages/Catalog';
 import { Privacy } from '@/pages/Privacy';
 import { Consent } from '@/pages/Consent';
+import { AdminPage } from '@/pages/Admin';
 
 function App() {
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith('/admin');
+
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      {!isAdmin && <Header />}
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -20,9 +24,10 @@ function App() {
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/consent" element={<Consent />} />
+          <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </div>
-      <Footer />
+      {!isAdmin && <Footer />}
     </div>
   );
 }

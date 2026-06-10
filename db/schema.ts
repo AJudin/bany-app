@@ -12,5 +12,8 @@ export const contacts = mysqlTable("contacts", {
   phone: varchar("phone", { length: 50 }).notNull(),
   email: varchar("email", { length: 255 }).notNull(),
   comment: text("comment"),
+  status: varchar("status", { length: 50 }).notNull().default("new"),
+  adminComment: text("admin_comment"),
+  emailLog: text("email_log"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
