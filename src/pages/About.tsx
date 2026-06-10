@@ -61,8 +61,15 @@ export function About() {
   return (
     <main>
       {/* Hero */}
-      <section className="flex min-h-[400px] items-center justify-center bg-gradient-to-br from-[#2C2C2C] to-[#3D3D3D] px-6" style={{ height: '50vh' }}>
-        <div className="text-center">
+      <section className="relative flex min-h-[400px] items-center justify-center overflow-hidden bg-[#2C2C2C] px-6" style={{ height: '50vh' }}>
+        <div className="absolute inset-0">
+          <img
+            src="/images/about-hero-bg.jpg"
+            alt="О компании"
+            className="h-full w-full object-cover opacity-40"
+          />
+        </div>
+        <div className="relative z-10 text-center">
           <span className="text-label text-[#C4703F]">О КОМПАНИИ</span>
           <h1 className="mt-4 font-display text-3xl font-medium text-white md:text-5xl lg:text-6xl">
             ЭкоБаня — бани, созданные с душой
