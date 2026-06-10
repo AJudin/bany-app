@@ -237,6 +237,9 @@ export const adminRouter = createRouter({
           user: env.smtpUser,
           pass: env.smtpPass,
         } : undefined,
+        tls: {
+          rejectUnauthorized: false,
+        },
       });
 
       const html = buildEmailTemplate(req);
